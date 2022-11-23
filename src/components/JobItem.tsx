@@ -114,7 +114,7 @@ const JobDate = tw(Date)`
 	md:font-normal
 `;
 
-const googleMapSearchLink = 'https://www.google.com/maps/search/?api=1&query=';
+const mapSearchLink = 'https://www.google.com/maps/search/?api=1&query=';
 
 type JobItemProps = {
 	id: string;
@@ -143,7 +143,7 @@ function JobItem({ id }: JobItemProps) {
 						<Link to={appJobDetailsPath + job.id}>{job.title}</Link>
 					</JobTitle>
 					<JobName>Department name • {job.name}</JobName>
-					<JobLocation href={googleMapSearchLink + job.address}>
+					<JobLocation href={mapSearchLink + job.address}>
 						<LocationIcon />
 						{job.city ? `${job.city}, ${job.country}` : job.address}
 					</JobLocation>
@@ -160,7 +160,7 @@ function JobItem({ id }: JobItemProps) {
 					<Link to={appJobDetailsPath + job.id}>{job.title}</Link>
 				</JobTitle>
 				<JobName>Department name • {job.name}</JobName>
-				<JobLocation href={googleMapSearchLink + job.address} className=''>
+				<JobLocation href={mapSearchLink + job.address} className=''>
 					<LocationIcon />
 					{job.city ? `${job.city}, ${job.country}` : job.address}
 				</JobLocation>
