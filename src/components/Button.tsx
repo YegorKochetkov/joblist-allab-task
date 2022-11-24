@@ -40,7 +40,7 @@ const ButtonElement = styled.button<ButtonStyleProps>`
 	${(props) =>
 		props.buttonStyle === BUTTONS.secondary &&
 		tw`
-			min-w-[14rem]
+			max-w-[14rem]
 			transition-colors
 			text-appTextButtonSecondary
 			bg-appBackgroundButtonSecondary
@@ -53,7 +53,7 @@ const ButtonElement = styled.button<ButtonStyleProps>`
 	${(props) =>
 		props.buttonStyle === BUTTONS.attention &&
 		tw`
-			min-w-[14rem]
+			max-w-[14rem]
 			transition-colors
 			text-appTextButtonAttention
 			bg-appBackgroundButtonAttention
