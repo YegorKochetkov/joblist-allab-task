@@ -41,8 +41,6 @@ const HeaderContent = tw.div`
 	after:-z-10
 	mt-6
 	md:mt-14
-	mb-8
-	md:mb-12
 `;
 
 const HeaderTitle = tw.h1`
@@ -56,7 +54,7 @@ const Title = tw(HeaderTitle)`
 	pb-[0.65rem]
 	border-b
 	border-appLightGrey
-	mb-4
+	mb-5
 	mt-14
 	md:mt-20
 `;
@@ -82,6 +80,7 @@ const JobHeader = tw.header`
 	md:gap-y-4
 	md:items-start
 	mb-6
+	mt-8
 `;
 
 const JobTitle = tw.h2`
@@ -127,14 +126,17 @@ const BackButton = tw(Button)`
 	relative
 	-left-24
 	[svg]:mr-5
+	mt-24
+	mb-48
 `;
 
 const ApplyButton = tw(Button)`
 	mx-auto
+	md:mx-0
 	mt-6
 	md:mt-8
 	mb-32
-	md:mb-24
+	md:mb-0
 `;
 
 const JobImage = tw.img`
@@ -147,18 +149,36 @@ const JobImage = tw.img`
 	duration-500
 `;
 
-const AttachedImages = tw.div`
+const AttachedImages = tw.p`
 	flex
 	flex-wrap
 	gap-2
 `;
 
-const ImageWrapper = tw.div`
+const ImageWrapper = tw.span`
 	w-[13rem]
 	max-h-[7.25rem]
 	[img]:md:hover:-translate-y-[33%]
 	[img]:md:hover:max-h-[20rem]
 	md:hover:z-10
+`;
+
+const EmploymentType = tw.p`
+	flex
+	flex-wrap
+	[button]:shrink
+	[button]:grow
+	gap-2
+	mt-[0.6rem]
+	mb-6
+`;
+
+const Benefits = tw(EmploymentType)``;
+
+const Job = tw.article`
+mt-8
+md:mt-12
+
 `;
 
 function JobDetails() {
@@ -196,9 +216,15 @@ function JobDetails() {
 			</header>
 
 			<main>
-				<article>
+				<Job>
 					<Container>
 						<WidthLimiter>
+							{isDesktop && (
+								<ApplyButton buttonStyle={BUTTONS.primary}>
+									Apply now
+								</ApplyButton>
+							)}
+
 							<JobHeader>
 								<JobTitle>{job.title}</JobTitle>
 								<JobDate messageAge={messageAge} />
@@ -220,21 +246,44 @@ function JobDetails() {
 							</JobDescription>
 
 							<ApplyButton buttonStyle={BUTTONS.primary}>Apply now</ApplyButton>
-
-							<Title as='h2'>Attached images</Title>
-							{isDesktop && (
-								<AttachedImages>
-									{images.map((image, index) => (
-										<ImageWrapper key={index}>{image}</ImageWrapper>
-									))}
-								</AttachedImages>
-							)}
+							{!isDesktop && <Title as='h2'>Attached images</Title>}
 						</WidthLimiter>
 					</Container>
+
 					{!isDesktop && <Slider items={images} />}
+
 					<Container>
 						<WidthLimiter>
 							<Title as='h2'>Additional info</Title>
+							<p>Employment type</p>
+							<EmploymentType>
+								{job.employment_type.map((type, index) => (
+									<Button buttonStyle={BUTTONS.secondary} key={index}>
+										{type}
+									</Button>
+								))}
+							</EmploymentType>
+
+							<p>Benefits</p>
+							<Benefits>
+								{job.benefits.map((benefit, index) => (
+									<Button buttonStyle={BUTTONS.attention} key={index}>
+										{benefit}
+									</Button>
+								))}
+							</Benefits>
+
+							{isDesktop && (
+								<React.Fragment>
+									<Title as='h2'>Attached images</Title>
+									<AttachedImages>
+										{images.map((image, index) => (
+											<ImageWrapper key={index}>{image}</ImageWrapper>
+										))}
+									</AttachedImages>
+								</React.Fragment>
+							)}
+
 							{isDesktop && (
 								<BackButton>
 									<ArrowIcon />
@@ -243,7 +292,7 @@ function JobDetails() {
 							)}
 						</WidthLimiter>
 					</Container>
-				</article>
+				</Job>
 			</main>
 		</React.Fragment>
 	);
