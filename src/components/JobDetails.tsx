@@ -14,23 +14,22 @@ import ArrowIcon from '@/ui/ArrowIcon2';
 import { useMediaQuery } from 'react-responsive';
 import { SCREENS } from '@/utils/screens';
 import { BUTTONS } from '@/utils/buttons';
+import Slider from './Slider/Slider';
 
-const JobDetailsContainer = tw.div`
+const Container = tw.div`
 	container
 	px-4
 	md:px-28
-	pt-6
-	pb-9
 	mx-auto
 	text-base
 	text-appTextPrimary
 `;
 
-const JobDetailsHeader = tw.header`
+const HeaderContent = tw.div`
 	relative
 	flex
 	flex-col
-	gap-y-9
+	gap-y-6
 	md:flex-row
 	md:justify-between
 	after:block
@@ -40,53 +39,56 @@ const JobDetailsHeader = tw.header`
 	after:border-b
 	after:border-appLightGrey
 	after:-z-10
+	mt-6
+	md:mt-14
 	mb-8
 	md:mb-12
-	min-w-min
-	max-w-[45rem]
 `;
 
-const JobDetailsControls = tw.div`
+const HeaderTitle = tw.h1`
+	text-[1.75rem]
+	leading-[2.1rem]
+	font-bold
+`;
+
+const Title = tw(HeaderTitle)``;
+
+const JobControls = tw.div`
 	flex
 	flex-wrap
 	md:flex-nowrap
 	gap-x-8
 `;
 
-const JobDetailsHeaderTitle = tw.h1`
-	text-[1.75rem]
-	leading-[2.1rem]
-	font-bold
-`;
-
-const JobDetailsMain = tw.main`
+const WidthLimiter = tw.div`
 	min-w-min
 	max-w-[45rem]
 `;
 
-const JobDetailsMainHeader = tw.header`
+const JobHeader = tw.header`
 	flex
 	flex-wrap
 	justify-between
 	items-center
+	gap-y-2
+	md:gap-y-4
 	md:items-start
-	md:gap-y-2
 	mb-6
 `;
 
-const JobDetailsMainTitle = tw.h2`
+const JobTitle = tw.h2`
 	text-2xl
 	font-bold
 	max-w-[32rem]
 `;
 
-const JobDetailsMainSubTitle = tw.h3`
+const JobSubTitle = tw.h3`
 	text-xl
 	font-bold
 	mt-11
 `;
 
-const JobDetailsDate = tw(Date)`
+const JobDate = tw(Date)`
 	text-sm
 	font-light
 	md:text-lg
@@ -94,12 +96,12 @@ const JobDetailsDate = tw(Date)`
 	lg:order-1
 `;
 
-const JobDetailsDescription = tw.article`
+const JobDescription = tw.section`
 	text-lg
 	font-normal
 `;
 
-const JobDetailsBenefit = tw.li`
+const JobBenefit = tw.li`
 	relative
 	ml-4
 	md:ml-0
@@ -119,61 +121,127 @@ const BackButton = tw(Button)`
 	[svg]:mr-5
 `;
 
+const ApplyButton = tw(Button)`
+	mx-auto
+	mt-6
+	md:mt-8
+	mb-32
+	md:mb-24
+`;
+
+const JobImage = tw.img`
+	rounded-md
+	w-[13rem]
+	max-h-[7.25rem]
+	object-center
+	object-cover
+	transition-all
+	duration-500
+`;
+
+const AttachedImages = tw.div`
+	flex
+	flex-wrap
+	gap-2
+`;
+
+const ImageWrapper = tw.div`
+	w-[13rem]
+	max-h-[7.25rem]
+	[img]:md:hover:-translate-y-[33%]
+	[img]:md:hover:max-h-[20rem]
+	md:hover:z-10
+`;
+
 function JobDetails() {
 	const { jobId } = useParams();
-
 	const job = jobId ? useJobsStore((state) => state.getJob(jobId)) : null;
 
 	if (!job) {
 		return <ErrorMessage error='Job not found!' />;
 	}
+
 	const [description, responsibilities, benefits] = formatJobDescription(
 		job.description
 	);
 	const messageAge = useMemo(() => daysBetweenDates(job.updatedAt), [job]);
 	const isDesktop = useMediaQuery({ minWidth: SCREENS.md });
 
+	const images = job.pictures.map((picture, index) => (
+		<JobImage src={picture + `?random=${index}`} key={index} />
+	));
+
 	return (
-		<JobDetailsContainer>
-			<JobDetailsHeader>
-				<JobDetailsHeaderTitle>Job&nbsp;details</JobDetailsHeaderTitle>
-				<JobDetailsControls>
-					<Bookmark id={job.id} text='Save to my list' />
-					<Share text='Share' />
-				</JobDetailsControls>
-			</JobDetailsHeader>
-			<JobDetailsMain>
-				<JobDetailsMainHeader>
-					<JobDetailsMainTitle>{job.title}</JobDetailsMainTitle>
-					<JobDetailsDate messageAge={messageAge} />
-					<JobSalary salary={job.salary} />
-				</JobDetailsMainHeader>
-				<JobDetailsDescription>
-					<p>{description}</p>
+		<React.Fragment>
+			<header>
+				<Container>
+					<WidthLimiter>
+						<HeaderContent>
+							<HeaderTitle>Job&nbsp;details</HeaderTitle>
+							<JobControls>
+								<Bookmark id={job.id} text='Save to my list' />
+								<Share text='Share' />
+							</JobControls>
+						</HeaderContent>
+					</WidthLimiter>
+				</Container>
+			</header>
 
-					<JobDetailsMainSubTitle>Responsibilities:</JobDetailsMainSubTitle>
-					<p>{responsibilities}</p>
+			<main>
+				<article>
+					<Container>
+						<WidthLimiter>
+							<JobHeader>
+								<JobTitle>{job.title}</JobTitle>
+								<JobDate messageAge={messageAge} />
+								<JobSalary salary={job.salary} />
+							</JobHeader>
 
-					<JobDetailsMainSubTitle>
-						Compensation & Benefits:
-					</JobDetailsMainSubTitle>
-					<ul>
-						{benefits.map((benefit, index) => (
-							<JobDetailsBenefit key={index}>{benefit}</JobDetailsBenefit>
-						))}
-					</ul>
-				</JobDetailsDescription>
-			</JobDetailsMain>
-			<Button buttonStyle={BUTTONS.primary}>Apply now</Button>
-			<Button buttonStyle={BUTTONS.secondary}>secondary button</Button>
-			<Button buttonStyle={BUTTONS.attention}>attention button</Button>
-			{isDesktop && (
-				<BackButton>
-					<ArrowIcon />
-					Return to job board
-				</BackButton>
-			)}
-		</JobDetailsContainer>
+							<JobDescription>
+								<p>{description}</p>
+
+								<JobSubTitle>Responsibilities:</JobSubTitle>
+								<p>{responsibilities}</p>
+
+								<JobSubTitle>Compensation & Benefits:</JobSubTitle>
+								<ul>
+									{benefits.map((benefit, index) => (
+										<JobBenefit key={index}>{benefit}</JobBenefit>
+									))}
+								</ul>
+							</JobDescription>
+
+							<ApplyButton buttonStyle={BUTTONS.primary}>Apply now</ApplyButton>
+
+							<HeaderContent>
+								<Title as='h2'>Attached images</Title>
+							</HeaderContent>
+							{isDesktop && (
+								<AttachedImages>
+									{images.map((image, index) => (
+										<ImageWrapper key={index}>{image}</ImageWrapper>
+									))}
+								</AttachedImages>
+							)}
+						</WidthLimiter>
+					</Container>
+					{!isDesktop && <Slider items={images} />}
+					<Container>
+						<WidthLimiter>
+							<HeaderContent>
+								<Title as='h2'>Additional info</Title>
+							</HeaderContent>
+							{isDesktop && (
+								<BackButton>
+									<ArrowIcon />
+									Return to job board
+								</BackButton>
+							)}
+						</WidthLimiter>
+					</Container>
+				</article>
+			</main>
+		</React.Fragment>
 	);
 }
 
