@@ -51,7 +51,15 @@ const HeaderTitle = tw.h1`
 	font-bold
 `;
 
-const Title = tw(HeaderTitle)``;
+const Title = tw(HeaderTitle)`
+	w-full
+	pb-[0.65rem]
+	border-b
+	border-appLightGrey
+	mb-4
+	mt-14
+	md:mt-20
+`;
 
 const JobControls = tw.div`
 	flex
@@ -213,9 +221,7 @@ function JobDetails() {
 
 							<ApplyButton buttonStyle={BUTTONS.primary}>Apply now</ApplyButton>
 
-							<HeaderContent>
-								<Title as='h2'>Attached images</Title>
-							</HeaderContent>
+							<Title as='h2'>Attached images</Title>
 							{isDesktop && (
 								<AttachedImages>
 									{images.map((image, index) => (
@@ -228,9 +234,7 @@ function JobDetails() {
 					{!isDesktop && <Slider items={images} />}
 					<Container>
 						<WidthLimiter>
-							<HeaderContent>
-								<Title as='h2'>Additional info</Title>
-							</HeaderContent>
+							<Title as='h2'>Additional info</Title>
 							{isDesktop && (
 								<BackButton>
 									<ArrowIcon />
