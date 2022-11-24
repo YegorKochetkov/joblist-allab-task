@@ -3,19 +3,21 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+	content: [ './index.html', './src/**/*.{js,ts,jsx,tsx}' ],
 	presets: [],
 	darkMode: 'media', // or 'class'
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+				sans: [ 'Montserrat', ...defaultTheme.fontFamily.sans ],
 			},
 			colors: {
 				appTextPrimary: '#3A4562',
 				appTextSecondary: '#878D9D',
+				appTextContacts: '#FFFFFF66',
 				appBackgroundPrimary: '#E6E9F2',
 				appBackgroundSecondary: '#EFF0F5',
+				appBackgroundContacts: '#2A3047',
 				appBackgroundButton: '#38456414',
 				appBackgroundButtonPrimary: '#384564',
 				appTextButtonSecondary: '#55699E',
@@ -319,10 +321,10 @@ module.exports = {
 		divideWidth: ({ theme }) => theme('borderWidth'),
 		dropShadow: {
 			sm: '0 1px 1px rgb(0 0 0 / 0.05)',
-			DEFAULT: ['0 1px 2px rgb(0 0 0 / 0.1)', '0 1px 1px rgb(0 0 0 / 0.06)'],
-			md: ['0 4px 3px rgb(0 0 0 / 0.07)', '0 2px 2px rgb(0 0 0 / 0.06)'],
-			lg: ['0 10px 8px rgb(0 0 0 / 0.04)', '0 4px 3px rgb(0 0 0 / 0.1)'],
-			xl: ['0 20px 13px rgb(0 0 0 / 0.03)', '0 8px 5px rgb(0 0 0 / 0.08)'],
+			DEFAULT: [ '0 1px 2px rgb(0 0 0 / 0.1)', '0 1px 1px rgb(0 0 0 / 0.06)' ],
+			md: [ '0 4px 3px rgb(0 0 0 / 0.07)', '0 2px 2px rgb(0 0 0 / 0.06)' ],
+			lg: [ '0 10px 8px rgb(0 0 0 / 0.04)', '0 4px 3px rgb(0 0 0 / 0.1)' ],
+			xl: [ '0 20px 13px rgb(0 0 0 / 0.03)', '0 8px 5px rgb(0 0 0 / 0.08)' ],
 			'2xl': '0 25px 25px rgb(0 0 0 / 0.15)',
 			none: '0 0 #0000',
 		},
@@ -428,19 +430,19 @@ module.exports = {
 			],
 		},
 		fontSize: {
-			xs: ['0.75rem', { lineHeight: '1rem' }],
-			sm: ['0.875rem', { lineHeight: '1.25rem' }],
-			base: ['1rem', { lineHeight: '1.5rem' }],
-			lg: ['1.125rem', { lineHeight: '1.75rem' }],
-			xl: ['1.25rem', { lineHeight: '1.75rem' }],
-			'2xl': ['1.5rem', { lineHeight: '2rem' }],
-			'3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-			'4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-			'5xl': ['3rem', { lineHeight: '1' }],
-			'6xl': ['3.75rem', { lineHeight: '1' }],
-			'7xl': ['4.5rem', { lineHeight: '1' }],
-			'8xl': ['6rem', { lineHeight: '1' }],
-			'9xl': ['8rem', { lineHeight: '1' }],
+			xs: [ '0.75rem', { lineHeight: '1rem' } ],
+			sm: [ '0.875rem', { lineHeight: '1.25rem' } ],
+			base: [ '1rem', { lineHeight: '1.5rem' } ],
+			lg: [ '1.125rem', { lineHeight: '1.75rem' } ],
+			xl: [ '1.25rem', { lineHeight: '1.75rem' } ],
+			'2xl': [ '1.5rem', { lineHeight: '2rem' } ],
+			'3xl': [ '1.875rem', { lineHeight: '2.25rem' } ],
+			'4xl': [ '2.25rem', { lineHeight: '2.5rem' } ],
+			'5xl': [ '3rem', { lineHeight: '1' } ],
+			'6xl': [ '3.75rem', { lineHeight: '1' } ],
+			'7xl': [ '4.5rem', { lineHeight: '1' } ],
+			'8xl': [ '6rem', { lineHeight: '1' } ],
+			'9xl': [ '8rem', { lineHeight: '1' } ],
 		},
 		fontWeight: {
 			thin: '100',

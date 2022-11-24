@@ -2,6 +2,7 @@ import React from 'react';
 import tw from 'twin.macro';
 
 const LocationContainer = tw.svg`
+	inline-block
 	w-[0.85rem]
 	fill-appTextSecondary
 	transition-colors

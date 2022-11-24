@@ -15,6 +15,7 @@ import { useMediaQuery } from 'react-responsive';
 import { SCREENS } from '@/utils/screens';
 import { BUTTONS } from '@/utils/buttons';
 import Slider from './Slider/Slider';
+import Contacts from './ContactsAside';
 
 const Container = tw.div`
 	container
@@ -294,6 +295,10 @@ function JobDetails() {
 					</Container>
 				</Job>
 			</main>
+			<Container>
+				{!isDesktop && <Title as='h2'>Contacts</Title>}
+				<Contacts job={job} />
+			</Container>
 		</React.Fragment>
 	);
 }
