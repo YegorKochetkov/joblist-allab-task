@@ -11,6 +11,7 @@ import { appJobDetailsPath } from '@/router/router';
 import useJobsStore from '@/store';
 import ErrorMessage from './ErrorMessage';
 import Date from './Date';
+import { mapSearchLink } from '@/utils/urls';
 
 const JobItemContainer = tw.article`
 	grid
@@ -94,6 +95,7 @@ const JobLocation = tw.a`
 	text-base
 	text-appTextSecondary
 	tracking-wide
+	transition-colors
 `;
 
 const JobAddInfo = tw.div`
@@ -113,8 +115,6 @@ const JobDate = tw(Date)`
 	md:text-base
 	md:font-normal
 `;
-
-const mapSearchLink = 'https://www.google.com/maps/search/?api=1&query=';
 
 type JobItemProps = {
 	id: string;

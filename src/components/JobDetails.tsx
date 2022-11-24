@@ -15,7 +15,7 @@ import { useMediaQuery } from 'react-responsive';
 import { SCREENS } from '@/utils/screens';
 import { BUTTONS } from '@/utils/buttons';
 import Slider from './Slider/Slider';
-import Contacts from './ContactsAside';
+import Contacts from './Contacts';
 
 const Container = tw.div`
 	container

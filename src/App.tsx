@@ -3,7 +3,8 @@ import { Outlet } from 'react-router-dom';
 import tw from 'twin.macro';
 import ErrorMessage from './components/ErrorMessage';
 import Loader from './components/Loader';
-import useJobsStore, { jobsUrl } from './store';
+import useJobsStore from './store';
+import { jobsUrl } from './utils/urls';
 
 const AppContainer = tw.div`
 	min-h-screen

@@ -4,9 +4,6 @@ import { JobType } from '@/types/job';
 import addRandomImageToJob from '@/utils/addRandomImageToJob';
 import addCityAndCountryToJob from '@/utils/addCityAndCountryToJob';
 
-export const jobsUrl =
-	'https://api.json-generator.com/templates/ZM1r0eic3XEy/data?access_token=wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu';
-
 type JobsStateType = {
 	jobs: JobType[] | null;
 	fetchError: string | null;
