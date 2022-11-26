@@ -143,7 +143,7 @@ function JobItem({ id }: JobItemProps) {
 						<Link to={appJobDetailsPath + job.id}>{job.title}</Link>
 					</JobTitle>
 					<JobName>Department name • {job.name}</JobName>
-					<JobLocation href={mapSearchLink + job.address}>
+					<JobLocation href={mapSearchLink + job.address.split(' ').join('+')}>
 						<LocationIcon />
 						{job.city ? `${job.city}, ${job.country}` : job.address}
 					</JobLocation>
@@ -160,7 +160,7 @@ function JobItem({ id }: JobItemProps) {
 					<Link to={appJobDetailsPath + job.id}>{job.title}</Link>
 				</JobTitle>
 				<JobName>Department name • {job.name}</JobName>
-				<JobLocation href={mapSearchLink + job.address} className=''>
+				<JobLocation href={mapSearchLink + job.address.split(' ').join('+')}>
 					<LocationIcon />
 					{job.city ? `${job.city}, ${job.country}` : job.address}
 				</JobLocation>
