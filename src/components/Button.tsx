@@ -7,6 +7,9 @@ type ButtonProps = {
 	children?: ReactNode;
 	className?: string;
 	buttonStyle?: string;
+	onClick:
+		| ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+		| (() => void);
 };
 
 type ButtonStyleProps = {
@@ -64,9 +67,13 @@ const ButtonElement = styled.button<ButtonStyleProps>`
 	`}
 `;
 
-function Button({ children, className, buttonStyle }: ButtonProps) {
+function Button({ children, className, buttonStyle, onClick }: ButtonProps) {
 	return (
-		<ButtonElement className={className} buttonStyle={buttonStyle}>
+		<ButtonElement
+			className={className}
+			buttonStyle={buttonStyle}
+			onClick={(event) => onClick(event)}
+		>
 			{children}
 		</ButtonElement>
 	);
