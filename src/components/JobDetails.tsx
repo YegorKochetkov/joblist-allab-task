@@ -16,12 +16,12 @@ import { SCREENS } from '@/utils/screens';
 import { BUTTONS } from '@/utils/buttons';
 import Slider from './Slider/Slider';
 import Contacts from './Contacts';
+import { useNavigate } from 'react-router-dom';
 
 const Container = tw.div`
 	container
-	px-4
-	md:px-28
 	mx-auto
+	px-4
 	text-base
 	text-appTextPrimary
 `;
@@ -70,6 +70,7 @@ const JobControls = tw.div`
 const WidthLimiter = tw.div`
 	min-w-min
 	max-w-[45rem]
+	mx-auto
 `;
 
 const JobHeader = tw.header`
@@ -160,7 +161,7 @@ const ImageWrapper = tw.span`
 	w-[13rem]
 	max-h-[7.25rem]
 	[img]:md:hover:-translate-y-[33%]
-	[img]:md:hover:max-h-[20rem]
+	[img]:md:hover:max-h-[18.75rem]
 	md:hover:z-10
 `;
 
@@ -177,13 +178,13 @@ const EmploymentType = tw.p`
 const Benefits = tw(EmploymentType)``;
 
 const Job = tw.article`
-mt-8
-md:mt-12
-
+	mt-8
+	md:mt-12
 `;
 
 function JobDetails() {
 	const { jobId } = useParams();
+	const navigate = useNavigate();
 	const job = jobId ? useJobsStore((state) => state.getJob(jobId)) : null;
 
 	if (!job) {
@@ -194,112 +195,149 @@ function JobDetails() {
 		job.description
 	);
 	const messageAge = useMemo(() => daysBetweenDates(job.updatedAt), [job]);
-	const isDesktop = useMediaQuery({ minWidth: SCREENS.md });
+	const isDesktop = useMediaQuery({ minWidth: SCREENS.xl });
+	const isMobile = useMediaQuery({ maxWidth: SCREENS.md });
 
 	const images = job.pictures.map((picture, index) => (
 		<JobImage src={picture + `?random=${index}`} key={index} />
 	));
 
-	return (
-		<React.Fragment>
-			<header>
-				<Container>
-					<WidthLimiter>
-						<HeaderContent>
-							<HeaderTitle>Job&nbsp;details</HeaderTitle>
-							<JobControls>
-								<Bookmark id={job.id} text='Save to my list' />
-								<Share text='Share' />
-							</JobControls>
-						</HeaderContent>
-					</WidthLimiter>
-				</Container>
-			</header>
+	const handleButtonClick = (
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+	) => {
+		console.log(event.target);
+	};
 
-			<main>
-				<Job>
+	const handleBackButtonClick = () => {
+		navigate(-1);
+	};
+
+	return (
+		<div className='flex flex-col xl:flex-row justify-center gap-x-15 xl:gap-x-32'>
+			<div>
+				<header>
 					<Container>
 						<WidthLimiter>
-							{isDesktop && (
-								<ApplyButton buttonStyle={BUTTONS.primary}>
+							<HeaderContent>
+								<HeaderTitle>Job&nbsp;details</HeaderTitle>
+								<JobControls>
+									<Bookmark id={job.id} text='Save to my list' />
+									<Share text='Share' />
+								</JobControls>
+							</HeaderContent>
+						</WidthLimiter>
+					</Container>
+				</header>
+
+				<main>
+					<Job>
+						<Container>
+							<WidthLimiter>
+								{isDesktop && (
+									<ApplyButton
+										buttonStyle={BUTTONS.primary}
+										onClick={(event) => handleButtonClick(event)}
+									>
+										Apply now
+									</ApplyButton>
+								)}
+
+								<JobHeader>
+									<JobTitle>{job.title}</JobTitle>
+									<JobDate messageAge={messageAge} />
+									<JobSalary salary={job.salary} />
+								</JobHeader>
+
+								<JobDescription>
+									<p>{description}</p>
+
+									<JobSubTitle>Responsibilities:</JobSubTitle>
+									<p>{responsibilities}</p>
+
+									<JobSubTitle>Compensation & Benefits:</JobSubTitle>
+									<ul>
+										{benefits.map((benefit, index) => (
+											<JobBenefit key={index}>{benefit}</JobBenefit>
+										))}
+									</ul>
+								</JobDescription>
+
+								<ApplyButton
+									buttonStyle={BUTTONS.primary}
+									onClick={(event) => handleButtonClick(event)}
+								>
 									Apply now
 								</ApplyButton>
-							)}
 
-							<JobHeader>
-								<JobTitle>{job.title}</JobTitle>
-								<JobDate messageAge={messageAge} />
-								<JobSalary salary={job.salary} />
-							</JobHeader>
+								{isMobile && <Title as='h2'>Attached images</Title>}
+							</WidthLimiter>
+						</Container>
 
-							<JobDescription>
-								<p>{description}</p>
+						{isMobile && <Slider items={images} />}
 
-								<JobSubTitle>Responsibilities:</JobSubTitle>
-								<p>{responsibilities}</p>
-
-								<JobSubTitle>Compensation & Benefits:</JobSubTitle>
-								<ul>
-									{benefits.map((benefit, index) => (
-										<JobBenefit key={index}>{benefit}</JobBenefit>
+						<Container>
+							<WidthLimiter>
+								<Title as='h2'>Additional info</Title>
+								<p>Employment type</p>
+								<EmploymentType>
+									{job.employment_type.map((type, index) => (
+										<Button
+											buttonStyle={BUTTONS.secondary}
+											key={index}
+											onClick={(event) => handleButtonClick(event)}
+										>
+											{type}
+										</Button>
 									))}
-								</ul>
-							</JobDescription>
+								</EmploymentType>
 
-							<ApplyButton buttonStyle={BUTTONS.primary}>Apply now</ApplyButton>
-							{!isDesktop && <Title as='h2'>Attached images</Title>}
-						</WidthLimiter>
-					</Container>
+								<p>Benefits</p>
+								<Benefits>
+									{job.benefits.map((benefit, index) => (
+										<Button
+											buttonStyle={BUTTONS.attention}
+											key={index}
+											onClick={(event) => handleButtonClick(event)}
+										>
+											{benefit}
+										</Button>
+									))}
+								</Benefits>
 
-					{!isDesktop && <Slider items={images} />}
+								{!isMobile && (
+									<React.Fragment>
+										<Title as='h2'>Attached images</Title>
+										<AttachedImages>
+											{images.map((image, index) => (
+												<ImageWrapper key={index}>{image}</ImageWrapper>
+											))}
+										</AttachedImages>
+									</React.Fragment>
+								)}
 
-					<Container>
-						<WidthLimiter>
-							<Title as='h2'>Additional info</Title>
-							<p>Employment type</p>
-							<EmploymentType>
-								{job.employment_type.map((type, index) => (
-									<Button buttonStyle={BUTTONS.secondary} key={index}>
-										{type}
-									</Button>
-								))}
-							</EmploymentType>
+								{isDesktop && (
+									<BackButton onClick={() => handleBackButtonClick()}>
+										<ArrowIcon />
+										Return to job board
+									</BackButton>
+								)}
+							</WidthLimiter>
+						</Container>
+					</Job>
+				</main>
+			</div>
 
-							<p>Benefits</p>
-							<Benefits>
-								{job.benefits.map((benefit, index) => (
-									<Button buttonStyle={BUTTONS.attention} key={index}>
-										{benefit}
-									</Button>
-								))}
-							</Benefits>
+			{!isDesktop && (
+				<Container>
+					<WidthLimiter>
+						<Title as='h2'>Contacts</Title>
+						<Contacts job={job} />
+					</WidthLimiter>
+				</Container>
+			)}
 
-							{isDesktop && (
-								<React.Fragment>
-									<Title as='h2'>Attached images</Title>
-									<AttachedImages>
-										{images.map((image, index) => (
-											<ImageWrapper key={index}>{image}</ImageWrapper>
-										))}
-									</AttachedImages>
-								</React.Fragment>
-							)}
-
-							{isDesktop && (
-								<BackButton>
-									<ArrowIcon />
-									Return to job board
-								</BackButton>
-							)}
-						</WidthLimiter>
-					</Container>
-				</Job>
-			</main>
-			<Container>
-				{!isDesktop && <Title as='h2'>Contacts</Title>}
-				<Contacts job={job} />
-			</Container>
-		</React.Fragment>
+			{isDesktop && <Contacts job={job} />}
+		</div>
 	);
 }
 
