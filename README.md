@@ -1,4 +1,4 @@
-# [Демо](https://yegorkochetkov.github.io/joblist-allab-task/)
+# [Demo](https://yegorkochetkov.github.io/joblist-allab-task/)
 
 ## Desired stack of test task
 
