@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter, redirect } from 'react-router-dom';
+import { createHashRouter, redirect } from 'react-router-dom';
 import App from '@/App';
 import JobDetails from '@/components/JobDetails';
 import ErrorPage from '@/components/ErrorPage';
@@ -9,7 +9,7 @@ export const appRootPath = '/joblist-allab-task/';
 export const appJobsListPath = '/joblist-allab-task/jobsList/';
 export const appJobDetailsPath = '/joblist-allab-task/jobDetails/';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
 	{
 		path: '',
 		errorElement: <ErrorPage />,
