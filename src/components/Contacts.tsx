@@ -79,8 +79,8 @@ const GoogleMap = tw.div`
 
 const ContactsWrapper = tw.div`
 	xl:mt-14
-	xl:max-w-[19rem]
-	2xl:max-w-[25rem]
+	xl:w-[19rem]
+	2xl:w-[25rem]
 `;
 
 function Contacts({ job }: ContactsAsideProps) {

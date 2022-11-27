@@ -182,6 +182,16 @@ const Job = tw.article`
 	md:mt-12
 `;
 
+const FlexContainer = tw.div`
+	flex
+	flex-col
+	xl:flex-row
+	justify-center
+	gap-x-32
+`;
+
+const FlexItem = tw.div``;
+
 function JobDetails() {
 	const { jobId } = useParams();
 	const navigate = useNavigate();
@@ -213,8 +223,8 @@ function JobDetails() {
 	};
 
 	return (
-		<div className='flex flex-col xl:flex-row justify-center gap-x-15 xl:gap-x-32'>
-			<div>
+		<FlexContainer>
+			<FlexItem>
 				<header>
 					<Container>
 						<WidthLimiter>
@@ -325,7 +335,7 @@ function JobDetails() {
 						</Container>
 					</Job>
 				</main>
-			</div>
+			</FlexItem>
 
 			{!isDesktop && (
 				<Container>
@@ -337,7 +347,7 @@ function JobDetails() {
 			)}
 
 			{isDesktop && <Contacts job={job} />}
-		</div>
+		</FlexContainer>
 	);
 }
 

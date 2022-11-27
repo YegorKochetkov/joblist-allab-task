@@ -107,7 +107,7 @@ const MyPaginate = styled(ReactPaginate).attrs({
 
 const JobsListContainer = tw.div`container mx-auto`;
 
-const itemsPerPage = 3;
+const itemsPerPage = 5;
 
 function PaginatedItems() {
 	const items = useJobsStore((state) => state.jobs) || [];
