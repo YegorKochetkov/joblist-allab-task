@@ -5,9 +5,9 @@ import JobDetails from '@/components/JobDetails';
 import ErrorPage from '@/components/ErrorPage';
 import PaginatedItems from '@/components/PaginatedItems';
 
-export const appRootPath = '/joblist-allab-task/';
-export const appJobsListPath = '/joblist-allab-task/jobsList/';
-export const appJobDetailsPath = '/joblist-allab-task/jobDetails/';
+export const appRootPath = '/';
+export const appJobsListPath = '/jobsList/';
+export const appJobDetailsPath = '/jobDetails/';
 
 const router = createHashRouter([
 	{
