@@ -2,6 +2,7 @@ import { JobType } from '@/types/job';
 import { mapSearchLink } from '@/utils/urls';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
+import MarkerIcon from '/src/assets/marker.svg';
 
 interface MapProps extends google.maps.MapOptions {
 	style?: { [key: string]: string };
@@ -52,7 +53,7 @@ export const Marker = (props: MarkerProps) => {
 		if (!marker) {
 			setMarker(
 				new google.maps.Marker({
-					icon: '/src/assets/marker.svg',
+					icon: MarkerIcon,
 				})
 			);
 		}
