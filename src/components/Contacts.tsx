@@ -31,8 +31,8 @@ const Location = tw.a`
 const Address = tw.p`
 	w-fit
 	hover:cursor-pointer
-	[a]:hover:underline
-	[svg]:hover:fill-appLightGrey
+	hover:[a]:underline
+	hover:[svg]:fill-appLightGrey
 	[svg]:min-w-[0.85rem]
 	[svg]:relative
 	[svg]:bottom-1
