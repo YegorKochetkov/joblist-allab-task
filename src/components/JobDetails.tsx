@@ -17,6 +17,7 @@ import { BUTTONS } from '@/utils/buttons';
 import Slider from './Slider/Slider';
 import Contacts from './Contacts';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Container = tw.div`
 	container
@@ -223,131 +224,139 @@ function JobDetails() {
 	};
 
 	return (
-		<FlexContainer>
-			<FlexItem>
-				<header>
-					<Container>
-						<WidthLimiter>
-							<HeaderContent>
-								<HeaderTitle>Job&nbsp;details</HeaderTitle>
-								<JobControls>
-									<Bookmark id={job.id} text='Save to my list' />
-									<Share text='Share' />
-								</JobControls>
-							</HeaderContent>
-						</WidthLimiter>
-					</Container>
-				</header>
+		<AnimatePresence>
+			<motion.span
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 0.5 }}
+			>
+				<FlexContainer>
+					<FlexItem>
+						<header>
+							<Container>
+								<WidthLimiter>
+									<HeaderContent>
+										<HeaderTitle>Job&nbsp;details</HeaderTitle>
+										<JobControls>
+											<Bookmark id={job.id} text='Save to my list' />
+											<Share text='Share' />
+										</JobControls>
+									</HeaderContent>
+								</WidthLimiter>
+							</Container>
+						</header>
 
-				<main>
-					<Job>
-						<Container>
-							<WidthLimiter>
-								{isDesktop && (
-									<ApplyButton
-										buttonStyle={BUTTONS.primary}
-										onClick={(event) => handleButtonClick(event)}
-									>
-										Apply now
-									</ApplyButton>
-								)}
+						<main>
+							<Job>
+								<Container>
+									<WidthLimiter>
+										{isDesktop && (
+											<ApplyButton
+												buttonStyle={BUTTONS.primary}
+												onClick={(event) => handleButtonClick(event)}
+											>
+												Apply now
+											</ApplyButton>
+										)}
 
-								<JobHeader>
-									<JobTitle>{job.title}</JobTitle>
-									<JobDate messageAge={messageAge} />
-									<JobSalary salary={job.salary} />
-								</JobHeader>
+										<JobHeader>
+											<JobTitle>{job.title}</JobTitle>
+											<JobDate messageAge={messageAge} />
+											<JobSalary salary={job.salary} />
+										</JobHeader>
 
-								<JobDescription>
-									<p>{description}</p>
+										<JobDescription>
+											<p>{description}</p>
 
-									<JobSubTitle>Responsibilities:</JobSubTitle>
-									<p>{responsibilities}</p>
+											<JobSubTitle>Responsibilities:</JobSubTitle>
+											<p>{responsibilities}</p>
 
-									<JobSubTitle>Compensation & Benefits:</JobSubTitle>
-									<ul>
-										{benefits.map((benefit, index) => (
-											<JobBenefit key={index}>{benefit}</JobBenefit>
-										))}
-									</ul>
-								</JobDescription>
+											<JobSubTitle>Compensation & Benefits:</JobSubTitle>
+											<ul>
+												{benefits.map((benefit, index) => (
+													<JobBenefit key={index}>{benefit}</JobBenefit>
+												))}
+											</ul>
+										</JobDescription>
 
-								<ApplyButton
-									buttonStyle={BUTTONS.primary}
-									onClick={(event) => handleButtonClick(event)}
-								>
-									Apply now
-								</ApplyButton>
-
-								{isMobile && <Title as='h2'>Attached images</Title>}
-							</WidthLimiter>
-						</Container>
-
-						{isMobile && <Slider items={images} />}
-
-						<Container>
-							<WidthLimiter>
-								<Title as='h2'>Additional info</Title>
-								<p>Employment type</p>
-								<EmploymentType>
-									{job.employment_type.map((type, index) => (
-										<Button
-											buttonStyle={BUTTONS.secondary}
-											key={index}
+										<ApplyButton
+											buttonStyle={BUTTONS.primary}
 											onClick={(event) => handleButtonClick(event)}
 										>
-											{type}
-										</Button>
-									))}
-								</EmploymentType>
+											Apply now
+										</ApplyButton>
 
-								<p>Benefits</p>
-								<Benefits>
-									{job.benefits.map((benefit, index) => (
-										<Button
-											buttonStyle={BUTTONS.attention}
-											key={index}
-											onClick={(event) => handleButtonClick(event)}
-										>
-											{benefit}
-										</Button>
-									))}
-								</Benefits>
+										{isMobile && <Title as='h2'>Attached images</Title>}
+									</WidthLimiter>
+								</Container>
 
-								{!isMobile && (
-									<React.Fragment>
-										<Title as='h2'>Attached images</Title>
-										<AttachedImages>
-											{images.map((image, index) => (
-												<ImageWrapper key={index}>{image}</ImageWrapper>
+								{isMobile && <Slider items={images} />}
+
+								<Container>
+									<WidthLimiter>
+										<Title as='h2'>Additional info</Title>
+										<p>Employment type</p>
+										<EmploymentType>
+											{job.employment_type.map((type, index) => (
+												<Button
+													buttonStyle={BUTTONS.secondary}
+													key={index}
+													onClick={(event) => handleButtonClick(event)}
+												>
+													{type}
+												</Button>
 											))}
-										</AttachedImages>
-									</React.Fragment>
-								)}
+										</EmploymentType>
 
-								{isDesktop && (
-									<BackButton onClick={() => handleBackButtonClick()}>
-										<ArrowIcon />
-										Return to job board
-									</BackButton>
-								)}
+										<p>Benefits</p>
+										<Benefits>
+											{job.benefits.map((benefit, index) => (
+												<Button
+													buttonStyle={BUTTONS.attention}
+													key={index}
+													onClick={(event) => handleButtonClick(event)}
+												>
+													{benefit}
+												</Button>
+											))}
+										</Benefits>
+
+										{!isMobile && (
+											<React.Fragment>
+												<Title as='h2'>Attached images</Title>
+												<AttachedImages>
+													{images.map((image, index) => (
+														<ImageWrapper key={index}>{image}</ImageWrapper>
+													))}
+												</AttachedImages>
+											</React.Fragment>
+										)}
+
+										{isDesktop && (
+											<BackButton onClick={() => handleBackButtonClick()}>
+												<ArrowIcon />
+												Return to job board
+											</BackButton>
+										)}
+									</WidthLimiter>
+								</Container>
+							</Job>
+						</main>
+					</FlexItem>
+
+					{!isDesktop && (
+						<Container>
+							<WidthLimiter>
+								<Title as='h2'>Contacts</Title>
+								<Contacts job={job} />
 							</WidthLimiter>
 						</Container>
-					</Job>
-				</main>
-			</FlexItem>
+					)}
 
-			{!isDesktop && (
-				<Container>
-					<WidthLimiter>
-						<Title as='h2'>Contacts</Title>
-						<Contacts job={job} />
-					</WidthLimiter>
-				</Container>
-			)}
-
-			{isDesktop && <Contacts job={job} />}
-		</FlexContainer>
+					{isDesktop && <Contacts job={job} />}
+				</FlexContainer>
+			</motion.span>
+		</AnimatePresence>
 	);
 }
 
