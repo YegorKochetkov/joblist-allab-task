@@ -195,7 +195,7 @@ const FlexItem = tw.div``;
 
 function JobDetails() {
 	const { jobId } = useParams();
-	console.log('🚀 ~ file: JobDetails.tsx ~ line 198 ~ jobId', jobId);
+
 	const navigate = useNavigate();
 	const job = jobId ? useJobsStore((state) => state.getJob(jobId)) : null;
 
