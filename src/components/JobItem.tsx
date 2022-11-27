@@ -90,7 +90,7 @@ const JobLocation = tw.a`
 	gap-2
 	w-fit
 	hover:text-appTextPrimary
-	[>svg]:hover:fill-appTextPrimary
+	hover:[svg]:fill-appTextPrimary
 	hover:cursor-pointer
 	text-base
 	text-appTextSecondary
