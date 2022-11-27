@@ -11,8 +11,9 @@ export const appJobDetailsPath = '/joblist-allab-task/jobDetails/';
 
 const router = createBrowserRouter([
 	{
-		path: '/',
+		path: '',
 		errorElement: <ErrorPage />,
+		loader: () => redirect(appJobsListPath + '1'),
 	},
 	{
 		path: appRootPath,
