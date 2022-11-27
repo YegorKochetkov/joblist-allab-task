@@ -49,11 +49,6 @@ const router = createBrowserRouter([
 		],
 	},
 	{
-		path: appJobDetailsPath + ':jobId',
-		element: <JobDetails />,
-		errorElement: <ErrorPage />,
-	},
-	{
 		path: appJobDetailsPath,
 		loader: ({ params }) => {
 			if (!params.jobId) {
@@ -68,6 +63,13 @@ const router = createBrowserRouter([
 			return;
 		},
 		errorElement: <ErrorPage />,
+		children: [
+			{
+				path: ':jobId',
+				element: <JobDetails />,
+				errorElement: <ErrorPage />,
+			},
+		],
 	},
 ]);
 
